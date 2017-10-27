@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="EFPFanFic.UI.Navigators.PagesNavigator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dtMvvm="clr-namespace:EFPFanFic.UI.Navigators.ViewModel.DesignTime"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance dtMvvm:DTPageNavigatorViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="30 " d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/EFPFanFic;component/Themes/Generic.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="175*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="FirstPageButton" Style="{StaticResource buttonStyle}" IsEnabled="{Binding IsFirstButtonEnabled}" Command="{Binding FirstPageCommand}">
+            <Image Style="{StaticResource buttonImageStyle}" Source="/EFPFanFic;component/Images/first.png" Width="16" Height="16" IsEnabled="{Binding IsFirstButtonEnabled}"/>
+        </Button>
+        <Button Grid.Column="1" Name="PreviousPageButton" Style="{StaticResource buttonStyle}" IsEnabled="{Binding IsPreviousButtonEnabled}" Command="{Binding PreviousPageCommand}">
+            <Image Style="{StaticResource buttonImageStyle}" Source="/EFPFanFic;component/Images/prev.png" Width="16" Height="16" IsEnabled="{Binding IsPreviousButtonEnabled}"/>
+        </Button>
+        <Label Grid.Column="2" Content="{Binding NavigationInfo}" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Button Grid.Column="3" Name="NextPageButton" Style="{StaticResource buttonStyle}" IsEnabled="{Binding IsNextButtonEnabled}" Command="{Binding NextPageCommand}">
+            <Image Style="{StaticResource buttonImageStyle}" Source="/EFPFanFic;component/Images/next.png" Width="16" Height="16" IsEnabled="{Binding IsNextButtonEnabled}"/>
+        </Button>
+        <Button Grid.Column="4" Name="LastPageButton" Style="{StaticResource buttonStyle}" IsEnabled="{Binding IsLastButtonEnabled}" Command="{Binding LastPageCommand}">
+            <Image Style="{StaticResource buttonImageStyle}" Source="/EFPFanFic;component/Images/last.png" Width="16" Height="16" IsEnabled="{Binding IsLastButtonEnabled}"/>
+        </Button>
+
+    </Grid>
+</UserControl>

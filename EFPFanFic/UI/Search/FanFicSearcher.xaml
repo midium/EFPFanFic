@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="EFPFanFic.UI.Search.FanFicSearcher"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EFPFanFic.UI.Search"
+             xmlns:dtMvvm="clr-namespace:EFPFanFic.UI.Search.ViewModels.DesignTime"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance dtMvvm:DTFanFicSearcherViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="250" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/EFPFanFic;component/Themes/Generic.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="60*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="72*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="72*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="72*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Label Content="Rating" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Genres" Grid.Column="1" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Length" Grid.Column="2" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Status" Grid.Column="3" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Couple Type" Grid.Column="4" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <Label Content="Characther" Grid.Row="2" Grid.ColumnSpan="2" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Characther" Grid.Row="2" Grid.Column="2" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Couple" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="3" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <Label Content="Context" Grid.Row="4" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Note" Grid.Row="4" Grid.Column="1" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Warnings" Grid.Row="4" Grid.Column="2" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Exclude Note" Grid.Row="4" Grid.Column="3" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Exclude Warns" Grid.Row="4" Grid.Column="4" Foreground="White" HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <Button Style="{StaticResource buttonStyle}" Grid.Row="6" Grid.Column="5" Margin="5" Command="{Binding SearchCommand}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="24" />
+                    <ColumnDefinition Width="24*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="/EFPFanFic;component/Images/magnifier-left.png" Width="16" Height="16"></Image>
+                <Label Content="Search" Foreground="White" Grid.Column="1"/>
+            </Grid>
+        </Button>
+        <ComboBox Name="Rating" Margin="2" Grid.Row="1" ItemsSource="{Binding RatingEntries}" SelectedItem="{Binding RatingEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name" />
+        <ComboBox Name="Genre" Margin="2" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GenreEntries}" SelectedItem="{Binding GenreEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Length" Margin="2" Grid.Row="1" Grid.Column="2" ItemsSource="{Binding StoryLengthEntries}" SelectedItem="{Binding StoryLengthEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Status" Margin="2" Grid.Row="1" Grid.Column="3" ItemsSource="{Binding StoryStatusEntries}" SelectedItem="{Binding StoryStatusEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="CoupleType" Margin="2" Grid.Row="1" Grid.Column="4" ItemsSource="{Binding CoupleTypeEntries}" SelectedItem="{Binding CoupleTypeEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+
+        <ComboBox Name="Characters1" Margin="2" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding CharacterEntries}" SelectedItem="{Binding Character1Entry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Characters2" Margin="2" Grid.Row="3" Grid.Column="2" ItemsSource="{Binding CharacterEntries}" SelectedItem="{Binding Character2Entry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Couple" Margin="2" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" ItemsSource="{Binding CoupleEntries}" SelectedItem="{Binding CoupleEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+
+        <ComboBox Name="Context" Margin="2" Grid.Row="5" ItemsSource="{Binding ContextEntries}" SelectedItem="{Binding ContextEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Note" Margin="2" Grid.Row="5" Grid.Column="1" ItemsSource="{Binding NotesEntries}" SelectedItem="{Binding NoteEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Warning" Margin="2" Grid.Row="5" Grid.Column="2" ItemsSource="{Binding WarnsEntries}" SelectedItem="{Binding WarnsEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="ExcludeNote" Margin="2" Grid.Row="5" Grid.Column="3" ItemsSource="{Binding ExcludeNotesEntries}" SelectedItem="{Binding ExcludeNoteEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="ExcludeWarning" Margin="2" Grid.Row="5" Grid.Column="4" ItemsSource="{Binding ExcludeWarnsEntries}" SelectedItem="{Binding ExcludeWarnsEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="EFPFanFic.UI.Pages.ReaderPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dtMvvm="clr-namespace:EFPFanFic.UI.Pages.ViewModels.DesignTime"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance dtMvvm:DTReaderPageViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/EFPFanFic;component/Themes/Generic.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="94*"/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="283*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.ColumnSpan="3" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3" Margin="0,0,0,5">
+            <TextBlock Margin="5" Name="FanFicText" Foreground="White" TextWrapping="WrapWithOverflow" Text="{Binding FanFicStory}" />
+        </ScrollViewer>
+        <Label Content="Font Size:" Grid.Row="1" Foreground="White" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+        <ComboBox Name="FontSizeSelector" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,9,0,0" Grid.Row="1" Style="{StaticResource FlatComboBoxStyle}"
+                  VerticalAlignment="Top" Width="119" SelectionChanged="FontSizeSelector_SelectionChanged" SelectedItem="{Binding DefaultFontSize}">
+            <ComboBox.ItemsSource>
+                <x:Array Type="{x:Type System:Int32}">
+                    <System:Int32>12</System:Int32>
+                    <System:Int32>14</System:Int32>
+                    <System:Int32>16</System:Int32>
+                    <System:Int32>18</System:Int32>
+                    <System:Int32>20</System:Int32>
+                    <System:Int32>22</System:Int32>
+                    <System:Int32>24</System:Int32>
+                    <System:Int32>26</System:Int32>
+                    <System:Int32>28</System:Int32>
+                </x:Array>
+            </ComboBox.ItemsSource>
+        </ComboBox>
+        <Button Grid.Row="1" Grid.Column="2" Name="CleanButton" Cursor="Hand" Style="{StaticResource buttonStyle}" Margin="5" 
+                    ToolTip="Exit read mode" CommandParameter="{Binding Mode=OneWay}" Command="{Binding ClosePanel}">
+            <Image Source="/EFPFanFic;component/Images/cross.png" Width="16" Height="16"/>
+        </Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D376529D-D130-40C9-8992-2FD080713195}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EFPFanFic</RootNamespace>
+    <AssemblyName>EFPFanFic</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\efpfanfic.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.6.2.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.6.2\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Business\Boot\AppStartup.cs" />
+    <Compile Include="Business\Scapers\Entities\Base\EntityBase.cs" />
+    <Compile Include="Business\Scapers\Entities\FullStoryData.cs" />
+    <Compile Include="Business\Scapers\PageScrapers\CategoryPageScraper.cs" />
+    <Compile Include="Business\Scapers\PageScrapers\FanFicsPageScraper.cs" />
+    <Compile Include="Business\Scapers\PageScrapers\MainPageScraper.cs" />
+    <Compile Include="Business\Scapers\ScrapersManager.cs" />
+    <Compile Include="UI\Dialogs\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\ViewModel\DesignTime\DTSplashScreenViewModel.cs" />
+    <Compile Include="UI\Dialogs\ViewModel\SplashScreenViewModel.cs" />
+    <Compile Include="UI\Navigators\Commands\FirstPageCommand.cs" />
+    <Compile Include="UI\Navigators\Commands\LastPageCommand.cs" />
+    <Compile Include="UI\Navigators\Commands\NextPageCommand.cs" />
+    <Compile Include="UI\Navigators\Commands\PreviousPageCommand.cs" />
+    <Compile Include="UI\Navigators\PagesNavigator.xaml.cs">
+      <DependentUpon>PagesNavigator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Navigators\ViewModel\DesignTime\DTPageNavigatorViewModel.cs" />
+    <Compile Include="UI\Navigators\ViewModel\PageNavigatorViewModel.cs" />
+    <Compile Include="UI\Pages\CategoryPage.xaml.cs">
+      <DependentUpon>CategoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Pages\Commands\ClosePanel.cs" />
+    <Compile Include="UI\Pages\FanFicsPage.xaml.cs">
+      <DependentUpon>FanFicsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Pages\PagesHelper.cs" />
+    <Compile Include="UI\Pages\ReaderPage.xaml.cs">
+      <DependentUpon>ReaderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Pages\ViewModels\CategoryPageViewModel.cs" />
+    <Compile Include="UI\Pages\ViewModels\DesignTime\DTReaderPageViewModel.cs" />
+    <Compile Include="UI\Pages\ViewModels\FanFicPageViewModel.cs" />
+    <Compile Include="UI\Pages\ViewModels\MainPageViewModel.cs" />
+    <Compile Include="UI\Pages\ViewModels\ReaderPageViewModel.cs" />
+    <Compile Include="UI\Search\Commands\FanFicsSearchCommand.cs" />
+    <Compile Include="UI\Search\Commands\SearchCommand.cs" />
+    <Compile Include="UI\Search\FanFicSearcher.xaml.cs">
+      <DependentUpon>FanFicSearcher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Search\SimpleSearch.xaml.cs">
+      <DependentUpon>SimpleSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Search\ViewModels\DesignTime\DTFanFicSearcherViewModel.cs" />
+    <Compile Include="UI\Search\ViewModels\FanFicSearcherViewModel.cs" />
+    <Compile Include="UI\Selectors\CategorySelector\CategoryItem.xaml.cs">
+      <DependentUpon>CategoryItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Selectors\CategorySelector\CategorySelectorControl.xaml.cs">
+      <DependentUpon>CategorySelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Selectors\CategorySelector\ViewModels\CategorySelectorViewModel.cs" />
+    <Compile Include="UI\Selectors\CategorySelector\ViewModels\DTO\CategoryItemDTO.cs" />
+    <Compile Include="UI\Selectors\FanFicsSelector\Commands\ReadFanFicCommand.cs" />
+    <Compile Include="UI\Selectors\FanFicsSelector\Commands\SaveAsPdfCommand.cs" />
+    <Compile Include="UI\Selectors\FanFicsSelector\FanFicItem.xaml.cs">
+      <DependentUpon>FanFicItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Selectors\FanFicsSelector\FanFicSelectorControl.xaml.cs">
+      <DependentUpon>FanFicSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Selectors\FanFicsSelector\ViewModels\DesignTime\DTFanFicItemViewModel.cs" />
+    <Compile Include="UI\Selectors\FanFicsSelector\ViewModels\DesignTime\DTFanFicSelectorViewModel.cs" />
+    <Compile Include="UI\Selectors\FanFicsSelector\ViewModels\FanFicItemViewModel.cs" />
+    <Compile Include="UI\Selectors\FanFicsSelector\ViewModels\FanFicSelectorViewModel.cs" />
+    <Compile Include="UI\Selectors\SubCategorySelector\SubCategoryItem.xaml.cs">
+      <DependentUpon>SubCategoryItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Selectors\SubCategorySelector\SubCategorySelectorControl.xaml.cs">
+      <DependentUpon>SubCategorySelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Selectors\SubCategorySelector\ViewModels\DTO\SubCategoryItemDTO.cs" />
+    <Compile Include="UI\Selectors\SubCategorySelector\ViewModels\SubCategoryViewModel.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="UI\Dialogs\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Navigators\PagesNavigator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pages\CategoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pages\FanFicsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Pages\ReaderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Search\FanFicSearcher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Search\SimpleSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Selectors\CategorySelector\CategoryItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Selectors\CategorySelector\CategorySelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Selectors\FanFicsSelector\FanFicItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Selectors\FanFicsSelector\FanFicSelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Selectors\SubCategorySelector\SubCategoryItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Selectors\SubCategorySelector\SubCategorySelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Midium.Helpers\Midium.Helpers.csproj">
+      <Project>{a63d5bb4-25e1-402b-9837-54281af127b3}</Project>
+      <Name>Midium.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\magnifier-left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\efpfanfic.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logoprim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\prev.png" />
+    <Resource Include="Images\first.png" />
+    <Resource Include="Images\last.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book-open-bookmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\document-pdf-text.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

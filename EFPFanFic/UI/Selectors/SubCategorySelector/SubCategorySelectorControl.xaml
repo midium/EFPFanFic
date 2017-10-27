@@ -1,0 +1,34 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EFPFanFic.UI.Selectors.SubCategorySelector"
+             xmlns:Search="clr-namespace:EFPFanFic.UI.Search" x:Class="EFPFanFic.UI.Selectors.SubCategorySelector.SubCategorySelectorControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/EFPFanFic;component/Themes/Generic.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="236*"/>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding CategoryName}" Foreground="White" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,6" FontFamily="Trebuchet MS" FontSize="14" />
+        <Search:SimpleSearch x:Name="SearchPanel" Grid.Row="1" Margin="6,0,6,0" ClearSearch="SearchPanel_ClearSearch" SearchItem="SearchPanel_SearchItem"/>
+        <Border Margin="6" BorderBrush="Black" BorderThickness="1" Grid.Row="2" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl Name="categories" Background="#FF404040" ItemsSource="{Binding SubCategorySelector.FilteredItems}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:SubCategoryItem Style="{StaticResource subCategoryItemStyle}" MouseDown="SubCategoryItem_MouseDown" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+    </Grid>
+</UserControl>

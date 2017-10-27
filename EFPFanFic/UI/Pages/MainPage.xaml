@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="EFPFanFic.UI.Pages.MainPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CategorySelector="clr-namespace:EFPFanFic.UI.Selectors.CategorySelector"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="520">
+    <Grid Background="#323232">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <CategorySelector:CategorySelectorControl x:Name="Categories" DataContext="{Binding .}" CategorySelectionChanged="Categories_CategorySelectionChanged"/>
+        <ContentControl Grid.Column="1" x:Name="viewsContainer" Content="{Binding CurrentCategoryViewModel}" />
+    </Grid>
+</UserControl>

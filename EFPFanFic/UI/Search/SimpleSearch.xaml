@@ -1,0 +1,31 @@
+﻿<UserControl x:Name="userControl" x:Class="EFPFanFic.UI.Search.SimpleSearch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EFPFanFic.UI.Search"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/EFPFanFic;component/Themes/Generic.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="32"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Margin="0,0,10,0" Name="SearchValue" VerticalContentAlignment="Center">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding SearchCommand, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SimpleSearch}}}" Key="Return"></KeyBinding>
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Grid.Column="1" Name="SearchButton" Style="{StaticResource buttonStyle}" Click="SearchButton_Click">
+            <Image Source="/EFPFanFic;component/Images/magnifier-left.png" Width="16" Height="16"/>
+        </Button>
+        <Button Grid.Column="2" Name="CleanButton" Cursor="Hand" Style="{StaticResource buttonStyle}" Margin="0,0,2,0" Click="CleanButton_Click">
+            <Image Source="/EFPFanFic;component/Images/cross.png" Width="16" Height="16"/>
+        </Button>
+
+    </Grid>
+</UserControl>

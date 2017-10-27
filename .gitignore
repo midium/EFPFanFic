@@ -1,0 +1,9 @@
+EFPFanFic/bin/
+EFPFanFic/obj/
+Midium.Helpers/bin/
+Midium.Helpers/obj/
+.vs/
+*.csproj.user
+
+# for nuget packages
+packages

@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="EFPFanFic.UI.Selectors.FanFicsSelector.FanFicItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dtMvvm="clr-namespace:EFPFanFic.UI.Selectors.FanFicsSelector.ViewModels.DesignTime"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600"
+             d:DataContext="{d:DesignInstance dtMvvm:DTFanFicItemViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/EFPFanFic;component/Themes/Generic.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="239*"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="239*"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="239*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="159*"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Grid.ColumnSpan="7" />
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,1" Grid.ColumnSpan="7" />
+        <Border BorderBrush="Black" BorderThickness="0,0,0,2" Grid.Row="7" Grid.ColumnSpan="7" />
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2" Background="{Binding RatingColor}" Margin="10" />
+        <Grid Grid.Column="1" Grid.ColumnSpan="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <Label Foreground="White" HorizontalContentAlignment="Right" FontSize="16" FontWeight="Bold" VerticalContentAlignment="Center">
+                <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Title}" />
+            </Label>
+            <Button Grid.Column="1" Name="SearchButton" Style="{StaticResource buttonStyle}" Margin="5" ToolTip="Read the FanFic"
+                    CommandParameter="{Binding Mode=OneWay}" Command="{Binding ReadFanFicCommand}">
+                <Image Source="/EFPFanFic;component/Images/book-open-bookmark.png" Width="16" Height="16"/>
+            </Button>
+            <Button Grid.Column="2" Name="CleanButton" Cursor="Hand" Style="{StaticResource buttonStyle}" Margin="5" 
+                    ToolTip="Save the FanFic as PDF" CommandParameter="{Binding Mode=OneWay}" Command="{Binding SaveAsPdf}">
+                <Image Source="/EFPFanFic;component/Images/document-pdf-text.png" Width="16" Height="16"/>
+            </Button>
+        </Grid>
+
+        <Label Grid.Row="1" Grid.ColumnSpan="7">
+            <TextBlock Text="{Binding Description}" Foreground="White" TextWrapping="WrapWithOverflow" Padding="2" />
+        </Label>
+
+        <Label Grid.Row="2" Content="Author:" Foreground="White" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" FontWeight="Bold"/>
+        <Label Grid.Row="2" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="2">
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Author}" />
+        </Label>
+        <Label Grid.Row="2" Content="Started:" Foreground="White" HorizontalContentAlignment="Right" Grid.Column="3" FontWeight="Bold"/>
+        <Label Grid.Row="2" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="4" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Started}" />
+        </Label>
+        <Label Grid.Row="2" Content="Updated:" Foreground="White" HorizontalContentAlignment="Right" Grid.Column="5" FontWeight="Bold"/>
+        <Label Grid.Row="2" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="6" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Updated}" />
+        </Label>
+
+        <Label Grid.Row="3" Content="Genre:" Foreground="White" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" FontWeight="Bold"/>
+        <Label Grid.Row="3" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="2" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Genre}" />
+        </Label>
+        <Label Grid.Row="3" Content="Cap(s):" Foreground="White" HorizontalContentAlignment="Right" Grid.Column="3" FontWeight="Bold"/>
+        <Label Grid.Row="3" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="4" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Caps}" />
+        </Label>
+        <Label Grid.Row="3" Content="Status:" Foreground="White" HorizontalContentAlignment="Right" Grid.Column="5" FontWeight="Bold"/>
+        <Label Grid.Row="3" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="6" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Status}" />
+        </Label>
+
+        <Label Grid.Row="4" Content="Notes:" Foreground="White" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" FontWeight="Bold" />
+        <Label Grid.Row="4" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Notes}" />
+        </Label>
+        <Label Grid.Row="4" Content="Warns:" Foreground="White" HorizontalContentAlignment="Right" Grid.Column="4" FontWeight="Bold"/>
+        <Label Grid.Row="4" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="5" Grid.ColumnSpan="2" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Warnings}" />
+        </Label>
+
+        <Label Grid.Row="5" Content="Characters:" Foreground="White" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" FontWeight="Bold"/>
+        <Label Grid.Row="5" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2">
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Characters}"  />
+        </Label>
+        <Label Grid.Row="5" Content="Couple(s):" Foreground="White" HorizontalContentAlignment="Right" Grid.Column="4" FontWeight="Bold"/>
+        <Label Grid.Row="5" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="5" Grid.ColumnSpan="2" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Couples}" />
+        </Label>
+
+        <Label Grid.Row="6" Content="Couple Type:" Foreground="White" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" FontWeight="Bold"/>
+        <Label Grid.Row="6" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="2" Grid.ColumnSpan="2" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding CoupleType}" />
+        </Label>
+        <Label Grid.Row="6" Content="Context:" Foreground="White" HorizontalContentAlignment="Right" Grid.Column="4" FontWeight="Bold"/>
+        <Label Grid.Row="6" Foreground="White" HorizontalContentAlignment="Left" Grid.Column="5" Grid.ColumnSpan="2" >
+            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Context}" />
+        </Label>
+    </Grid>
+</UserControl>
