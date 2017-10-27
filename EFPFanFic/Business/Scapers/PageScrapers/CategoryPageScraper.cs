@@ -14,8 +14,8 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
     public class CategoryPageScraper
     {
         private const string _baseUri = "https://efpfanfic.net/{0}";
-        private WebClient _webClient;
-        private HtmlDocument _decoder;
+        private readonly WebClient _webClient;
+        private readonly HtmlDocument _decoder;
 
         public CategoryPageScraper(WebClient webClient, HtmlDocument decoder)
         {
@@ -36,9 +36,9 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 source = WebUtility.HtmlDecode(source);
                 _decoder.LoadHtml(source);
 
-                HtmlNode subCategoriesNodes = _decoder.DocumentNode.Descendants().Where(x => (x.Name == "table" &&
+                HtmlNode subCategoriesNodes = _decoder.DocumentNode.Descendants().FirstOrDefault(x => (x.Name == "table" &&
                                                                                     x.Attributes["align"] != null &&
-                                                                                    x.Attributes["align"].Value.Contains("center"))).FirstOrDefault();
+                                                                                    x.Attributes["align"].Value.Contains("center")));
 
                 if (subCategoriesNodes != null)
                 {
@@ -48,30 +48,9 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                     {
                         foreach (HtmlNode subCategory in subCategories)
                         {
-                            HtmlNode nameNode = subCategory.Descendants().Where(x => (x.Name == "a" &&
-                                                                                   x.Attributes["href"] != null)).FirstOrDefault();
-                            HtmlNode authorNode = subCategory.Descendants().Where(x => (x.Name == "font")).FirstOrDefault();
-
-                            string subCategoryName = string.Empty;
-                            string subCategoryAuthor = string.Empty;
-                            string subCategoryUri = string.Empty;
-                            long subCategoryCount = long.MinValue;
-
-                            if (nameNode != null)
-                            {
-                                subCategoryName = nameNode.InnerText;
-                                subCategoryUri = nameNode.Attributes["href"].Value;
-
-                                Match countTextMatch = Regex.Match(subCategory.InnerText.Replace(subCategoryName,""), "\\((.*?)\\)");
-                                if (countTextMatch.Success)
-                                    subCategoryCount = Convert.ToInt64(countTextMatch.Value.Replace("(", "").Replace(")",""));
-
-                                if (authorNode != null)
-                                    subCategoryAuthor = authorNode.InnerText;
-
-                                if (subCategoryName != string.Empty)
-                                    result.Add(new SubCategoryItemDTO(subCategoryName, subCategoryAuthor, subCategoryUri, subCategoryCount));
-                            }
+                            SubCategoryItemDTO subCategoryInfo = ScreapeSubCategoryInformation(subCategory);
+                            if (subCategoryInfo != null)
+                                result.Add(subCategoryInfo);
 
                         }
                     }
@@ -82,7 +61,7 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 else
                     scrapeSucceeded = false;
 
-                if (scrapeSucceeded == false)
+                if (!scrapeSucceeded)
                 {
                     //TODO: Advise user that nothing has been found and disable UI
                 }
@@ -90,9 +69,37 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 return result;
             } catch(Exception e)
             {
-                return null;
+                return new ObservableCollection<SubCategoryItemDTO>();
             }
         }
 
+        private SubCategoryItemDTO ScreapeSubCategoryInformation(HtmlNode subCategory)
+        {
+            HtmlNode nameNode = subCategory.Descendants().FirstOrDefault(x => (x.Name == "a" && x.Attributes["href"] != null));
+            HtmlNode authorNode = subCategory.Descendants().FirstOrDefault(x => (x.Name == "font"));
+
+            string subCategoryName = string.Empty;
+            string subCategoryAuthor = string.Empty;
+            string subCategoryUri = string.Empty;
+            long subCategoryCount = long.MinValue;
+
+            if (nameNode != null)
+            {
+                subCategoryName = nameNode.InnerText;
+                subCategoryUri = nameNode.Attributes["href"].Value;
+
+                Match countTextMatch = Regex.Match(subCategory.InnerText.Replace(subCategoryName, ""), "\\((.*?)\\)");
+                if (countTextMatch.Success)
+                    subCategoryCount = Convert.ToInt64(countTextMatch.Value.Replace("(", "").Replace(")", ""));
+
+                if (authorNode != null)
+                    subCategoryAuthor = authorNode.InnerText;
+
+                if (subCategoryName != string.Empty)
+                    return new SubCategoryItemDTO(subCategoryName, subCategoryAuthor, subCategoryUri, subCategoryCount);
+            }
+
+            return null;
+        }
     }
 }
