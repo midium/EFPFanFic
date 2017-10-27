@@ -61,14 +61,7 @@
     <Compile Include="ApplicationHelpers\AppInfo.cs" />
     <Compile Include="ApplicationHelpers\DispatcherHelper.cs" />
     <Compile Include="Observable\ObservableObject.cs" />
-    <Compile Include="PDF\Adapters\BrushAdapter.cs" />
-    <Compile Include="PDF\Adapters\FontAdapter.cs" />
-    <Compile Include="PDF\Adapters\FontFamilyAdapter.cs" />
-    <Compile Include="PDF\Adapters\ImageAdapter.cs" />
-    <Compile Include="PDF\Adapters\PdfSharpAdapter.cs" />
-    <Compile Include="PDF\Adapters\PenAdapter.cs" />
     <Compile Include="PDF\PDFManager.cs" />
-    <Compile Include="PDF\Utilities\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\HtmlToText.cs" />
     <Compile Include="Web\WebConnectionChecker.cs" />

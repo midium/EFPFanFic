@@ -19,8 +19,8 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
     {
         private const string _baseUri = "https://efpfanfic.net/{0}&offset={1}&pagina={2}&ratinglist={3}&charlist1={4}&charlist2={5}&genrelist={6}&warninglist1={7}&warninglist2={8}&completelist={9}&capitolilist={10}&colloclist={11}&tipocoplist={12}&coppielist={13}&avvertlist1={14}&avvertlist2={15}";
         private const string _fullStoryUri = "https://efpfanfic.net/printsave.php?action=printall&sid={0}";
-        private WebClient _webClient;
-        private HtmlDocument _decoder;
+        private readonly WebClient _webClient;
+        private readonly HtmlDocument _decoder;
         private int _totalPages;
         private List<EntityBase> _ratingOptions = new List<EntityBase>();
         private List<EntityBase> _genresOptions = new List<EntityBase>();
@@ -51,6 +51,12 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
         public List<EntityBase> NotesOptions { get => _notesOptions; }
         public List<EntityBase> WarnsOptions { get => _warnsOptions; }
 
+        internal ObservableCollection<FanFicItemViewModel> GetFanFicStories(string fanFicsUri, int pageNumber)
+        {
+            return GetFanFicStories(fanFicsUri, pageNumber, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
+                string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+        }
+
         internal ObservableCollection<FanFicItemViewModel> GetFanFicStories(string fanFicsUri, int pageNumber, string rating, string genre, string storyLength, 
             string storyStatus, string coupleType, string character1, string character2, string couple, string context, string note, string warn, 
             string excludeNote, string excludeWarn)
@@ -70,9 +76,9 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 source = WebUtility.HtmlDecode(source);
                 _decoder.LoadHtml(source);
 
-                HtmlNode fanFicsNodes = _decoder.DocumentNode.Descendants().Where(x => (x.Name == "div" &&
+                HtmlNode fanFicsNodes = _decoder.DocumentNode.Descendants().FirstOrDefault(x => (x.Name == "div" &&
                                                                                     x.Attributes["id"] != null &&
-                                                                                    x.Attributes["id"].Value.Contains("corpo"))).FirstOrDefault();
+                                                                                    x.Attributes["id"].Value.Contains("corpo")));
 
                 if (fanFicsNodes != null)
                 {
@@ -84,17 +90,17 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                     {
                         foreach (HtmlNode fanFicBlock in fanFicsBlocks)
                         {
-                            HtmlNode titleNode = fanFicBlock.Descendants().Where(x => (x.Name == "div" &&
+                            HtmlNode titleNode = fanFicBlock.Descendants().FirstOrDefault(x => (x.Name == "div" &&
                                                                                     x.Attributes["class"] != null &&
-                                                                                    x.Attributes["class"].Value.Contains("titlestoria"))).FirstOrDefault();
+                                                                                    x.Attributes["class"].Value.Contains("titlestoria")));
 
-                            HtmlNode descriptionNode = fanFicBlock.Descendants().Where(x => (x.Name == "div" &&
+                            HtmlNode descriptionNode = fanFicBlock.Descendants().FirstOrDefault(x => (x.Name == "div" &&
                                                                                     x.Attributes["class"] != null &&
-                                                                                    x.Attributes["class"].Value.Contains("introbloc"))).FirstOrDefault();
+                                                                                    x.Attributes["class"].Value.Contains("introbloc")));
 
-                            HtmlNode detailsNode = fanFicBlock.Descendants().Where(x => (x.Name == "div" &&
+                            HtmlNode detailsNode = fanFicBlock.Descendants().FirstOrDefault(x => (x.Name == "div" &&
                                                                                     x.Attributes["class"] != null &&
-                                                                                    x.Attributes["class"].Value.Contains("notebloc"))).FirstOrDefault();
+                                                                                    x.Attributes["class"].Value.Contains("notebloc")));
 
 
                             string fanFicTitle = string.Empty;
@@ -221,16 +227,16 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                         scrapeSucceeded = false;
 
                     // Loading pages count
-                    HtmlNode paginationNode = fanFicsNodes.Descendants().Where(x => (x.Name == "div" &&
+                    HtmlNode paginationNode = fanFicsNodes.Descendants().LastOrDefault(x => (x.Name == "div" &&
                                                                                      x.Attributes["style"] != null && 
-                                                                                     x.Attributes["style"].Value.Contains("text-align:center;"))).LastOrDefault();
+                                                                                     x.Attributes["style"].Value.Contains("text-align:center;")));
 
-                    HtmlNode pagesCountNote = paginationNode?.Descendants().Where(x => (x.Name == "big")).FirstOrDefault()?.Descendants().Where(x => (x.Name == "b")).LastOrDefault();
+                    HtmlNode pagesCountNote = paginationNode?.Descendants().FirstOrDefault(x => (x.Name == "big"))?.Descendants().LastOrDefault(x => (x.Name == "b"));
 
                     _totalPages = Convert.ToInt32(pagesCountNote?.InnerText);
 
                     // Loading searchable values
-                    HtmlNode searchFormNode = fanFicsNodes.Descendants().Where(x => (x.Name == "form")).FirstOrDefault();
+                    HtmlNode searchFormNode = fanFicsNodes.Descendants().FirstOrDefault(x => (x.Name == "form"));
                     if (searchFormNode != null)
                     {
                         _ratingOptions = GetOptions(fanFicsNodes, "ratinglist");
@@ -249,7 +255,7 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 else
                     scrapeSucceeded = false;
 
-                if (scrapeSucceeded == false)
+                if (!scrapeSucceeded)
                 {
                     //TODO: Advise user that nothing has been found and disable UI
                 }
@@ -266,9 +272,9 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
             List<EntityBase> result = new List<EntityBase>();
             result.Add(new EntityBase(string.Empty, "Any"));
 
-            HtmlNode ratingNode = searchFormNode.Descendants().Where(x => (x.Name == "select" &&
+            HtmlNode ratingNode = searchFormNode.Descendants().FirstOrDefault(x => (x.Name == "select" &&
                                                                             x.Attributes["name"] != null &&
-                                                                            x.Attributes["name"].Value.Contains(optionName))).FirstOrDefault();
+                                                                            x.Attributes["name"].Value.Contains(optionName)));
             if (ratingNode != null)
             {
                 List<HtmlNode> optionsNodes = ratingNode.Descendants().Where(x => (x.Name == "option" &&
@@ -318,9 +324,9 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                     foreach(HtmlNode imgNode in _decoder.DocumentNode.Descendants().Where(x => (x.Name == "img" || x.Name == "hr")).ToList())
                         imgNode.Remove();
 
-                    HtmlNode styleNode = _decoder.DocumentNode.Descendants().Where(x => (x.Name == "link" &&
+                    HtmlNode styleNode = _decoder.DocumentNode.Descendants().FirstOrDefault(x => (x.Name == "link" &&
                                                                     x.Attributes["rel"] != null &&
-                                                                    x.Attributes["rel"].Value.Contains("stylesheet"))).FirstOrDefault();
+                                                                    x.Attributes["rel"].Value.Contains("stylesheet")));
 
                     string cssStyle = string.Empty;
                     if (styleNode != null && styleNode.Attributes["href"] != null)

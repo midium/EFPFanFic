@@ -16,24 +16,20 @@ namespace EFPFanFic.Business.Scapers
 {
     public class ScrapersManager
     {
-        // Helpers
-        private WebClient _webClient;
-        private HtmlDocument _decoder;
-
         // Scrapers
-        private MainPageScraper _mainPageScraper;
-        private CategoryPageScraper _categoryPageScraper;
-        private FanFicsPageScraper _fanFicsPageScraper;
+        private readonly MainPageScraper _mainPageScraper;
+        private readonly CategoryPageScraper _categoryPageScraper;
+        private readonly FanFicsPageScraper _fanFicsPageScraper;
         
         public ScrapersManager()
         {
 
-            _webClient = new WebClient();
-            _decoder = new HtmlDocument();
+            WebClient webClient = new WebClient();
+            HtmlDocument decoder = new HtmlDocument();
 
-            _mainPageScraper = new MainPageScraper(_webClient, _decoder);
-            _categoryPageScraper = new CategoryPageScraper(_webClient, _decoder);
-            _fanFicsPageScraper = new FanFicsPageScraper(_webClient, _decoder);
+            _mainPageScraper = new MainPageScraper(webClient, decoder);
+            _categoryPageScraper = new CategoryPageScraper(webClient, decoder);
+            _fanFicsPageScraper = new FanFicsPageScraper(webClient, decoder);
         }
 
         public ObservableCollection<CategoryItemDTO> GetFanFicCategories()
@@ -46,16 +42,15 @@ namespace EFPFanFic.Business.Scapers
             if (SubCategoryUri != string.Empty)
                 return _categoryPageScraper.GetFanFicSubCategories(SubCategoryUri);
             else
-                return null;
+                return new ObservableCollection<SubCategoryItemDTO>();
         }
 
         public ObservableCollection<FanFicItemViewModel> GetFanFicStories(string fanFicsUri, int page)
         {
             if (fanFicsUri != string.Empty)
-                return _fanFicsPageScraper.GetFanFicStories(fanFicsUri, page, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, 
-                    string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                return _fanFicsPageScraper.GetFanFicStories(fanFicsUri, page);
             else
-                return null;
+                return new ObservableCollection<FanFicItemViewModel>();
         }
 
         public ObservableCollection<FanFicItemViewModel> GetFanFicStories(string fanFicsUri, int page, string rating, string genre, string storyLength, 
@@ -66,7 +61,7 @@ namespace EFPFanFic.Business.Scapers
                 return _fanFicsPageScraper.GetFanFicStories(fanFicsUri, page, rating, genre, storyLength, storyStatus, coupleType, character1, 
                     character2, couple, context, note, warn, excludeNote, excludeWarn);
             else
-                return null;
+                return new ObservableCollection<FanFicItemViewModel>();
         }
 
         public int GetFanFicPages()

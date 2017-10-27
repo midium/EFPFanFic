@@ -18,8 +18,8 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
     public class MainPageScraper
     {
         private const string _baseUri = "https://efpfanfic.net/{0}";
-        private WebClient _webClient;
-        private HtmlDocument _decoder;
+        private readonly WebClient _webClient;
+        private readonly HtmlDocument _decoder;
 
         public MainPageScraper(WebClient webClient, HtmlDocument decoder)
         {
@@ -40,9 +40,9 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 source = WebUtility.HtmlDecode(source);
                 _decoder.LoadHtml(source);
 
-                HtmlNode fanFicNode = _decoder.DocumentNode.Descendants().Where(x => (x.Name == "table" &&
+                HtmlNode fanFicNode = _decoder.DocumentNode.Descendants().FirstOrDefault(x => (x.Name == "table" &&
                                                                                     x.Attributes["align"] != null &&
-                                                                                    x.Attributes["align"].Value.Contains("center"))).FirstOrDefault();
+                                                                                    x.Attributes["align"].Value.Contains("center")));
 
                 if (fanFicNode != null)
                 {
@@ -53,26 +53,9 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                     {
                         foreach (HtmlNode category in categories)
                         {
-                            HtmlNode nameNode = category.Descendants().Where(x => (x.Name == "a" &&
-                                                                                   x.Attributes["href"] != null)).FirstOrDefault();
-                            HtmlNode countNode = category.Descendants().Where(x => (x.Name == "font")).FirstOrDefault();
-
-                            string categoryName = string.Empty;
-                            string categoryUri = string.Empty;
-                            long categoryCount = long.MinValue;
-
-                            if (nameNode != null)
-                            {
-                                categoryName = nameNode.InnerText;
-                                categoryUri = nameNode.Attributes["href"].Value;
-
-                                if (countNode != null)
-                                    categoryCount = Convert.ToInt64(countNode.InnerText.Replace("(", "").Replace(")", "").ToString());
-
-                                if (categoryName != string.Empty)
-                                    result.Add(new CategoryItemDTO(categoryName, categoryUri, categoryCount));
-                            }
-
+                            CategoryItemDTO item = GetCategoryNodeInformation(category);
+                            if (item != null)
+                                result.Add(item);
                         }
                     }
                     else
@@ -82,7 +65,7 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 else
                     scrapeSucceeded = false;
 
-                if (scrapeSucceeded == false)
+                if (!scrapeSucceeded)
                 {
                     //TODO: Advise user that nothing has been found and disable UI
                 }
@@ -90,9 +73,34 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 return result;
             } catch(Exception e)
             {
-                return null;
+                return new ObservableCollection<CategoryItemDTO>();
             }
 
+        }
+
+        private CategoryItemDTO GetCategoryNodeInformation(HtmlNode category)
+        {
+            HtmlNode nameNode = category.Descendants().FirstOrDefault(x => (x.Name == "a" &&
+                                                                   x.Attributes["href"] != null));
+            HtmlNode countNode = category.Descendants().FirstOrDefault(x => (x.Name == "font"));
+
+            string categoryName = string.Empty;
+            string categoryUri = string.Empty;
+            long categoryCount = long.MinValue;
+
+            if (nameNode != null)
+            {
+                categoryName = nameNode.InnerText;
+                categoryUri = nameNode.Attributes["href"].Value;
+
+                if (countNode != null)
+                    categoryCount = Convert.ToInt64(countNode.InnerText.Replace("(", "").Replace(")", "").ToString());
+
+                if (categoryName != string.Empty)
+                    return new CategoryItemDTO(categoryName, categoryUri, categoryCount);
+            }
+
+            return null;
         }
     }
 }

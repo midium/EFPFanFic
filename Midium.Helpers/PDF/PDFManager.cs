@@ -17,7 +17,7 @@ namespace Midium.Helpers.PDF
 {
     public class PDFManager
     {
-        private Thread saveThread;
+        private Thread _saveThread;
 
         public PDFManager()
         {
@@ -28,8 +28,8 @@ namespace Midium.Helpers.PDF
         {
             try
             {
-                saveThread = new Thread(() => ConvertHtmlToPDF(htmlSource, css, fileName));
-                saveThread.Start();
+                _saveThread = new Thread(() => ConvertHtmlToPDF(htmlSource, css, fileName));
+                _saveThread.Start();
                 return true;
             } catch (Exception e)
             {
@@ -53,7 +53,7 @@ namespace Midium.Helpers.PDF
         {
 
             
-            CssData cssData = PdfGenerator.ParseStyleSheet(GetCssContent(css));//CssData.Parse( , css, true);
+            CssData cssData = PdfGenerator.ParseStyleSheet(GetCssContent(css));
 
             PdfDocument pdf = PdfGenerator.GeneratePdf(htmlSource, PageSize.A4, 20, cssData);
 
