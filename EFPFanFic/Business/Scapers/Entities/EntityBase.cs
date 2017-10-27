@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFPFanFic.Business.Scapers.Entities.Base
+namespace EFPFanFic.Business.Scapers.Entities
 {
     public class EntityBase
     {
-        private string _value = string.Empty;
-        private string _name = string.Empty;
+        private string _value;
+        private string _name;
 
         public string Value { get => _value; set => _value = value; }
         public string Name { get => _name; set => _name = value; }

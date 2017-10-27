@@ -1,4 +1,4 @@
-﻿using EFPFanFic.Business.Scapers.Entities.Base;
+﻿using EFPFanFic.Business.Scapers.Entities;
 using EFPFanFic.UI.Navigators.ViewModel;
 using EFPFanFic.UI.Search.ViewModels;
 using Midium.Helpers.Observable;

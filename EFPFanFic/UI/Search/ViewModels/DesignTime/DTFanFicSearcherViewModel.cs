@@ -1,4 +1,4 @@
-﻿using EFPFanFic.Business.Scapers.Entities.Base;
+﻿using EFPFanFic.Business.Scapers.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

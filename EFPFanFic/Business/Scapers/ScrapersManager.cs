@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using EFPFanFic.UI.Selectors.SubCategorySelector.ViewModels.DTO;
 using EFPFanFic.UI.Selectors.FanFicsSelector.ViewModels;
-using EFPFanFic.Business.Scapers.Entities.Base;
 using EFPFanFic.Business.Scapers.Entities;
 
 namespace EFPFanFic.Business.Scapers

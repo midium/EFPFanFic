@@ -10,7 +10,6 @@ using EFPFanFic.UI.Selectors.FanFicsSelector.ViewModels;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using EFPFanFic.Business.Scapers.Entities;
-using EFPFanFic.Business.Scapers.Entities.Base;
 using System.Globalization;
 using System.Diagnostics;
 

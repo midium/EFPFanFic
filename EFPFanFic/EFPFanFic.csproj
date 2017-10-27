@@ -69,7 +69,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Business\Boot\AppStartup.cs" />
-    <Compile Include="Business\Scapers\Entities\Base\EntityBase.cs" />
+    <Compile Include="Business\Scapers\Entities\EntityBase.cs" />
     <Compile Include="Business\Scapers\Entities\FullStoryData.cs" />
     <Compile Include="Business\Scapers\PageScrapers\CategoryPageScraper.cs" />
     <Compile Include="Business\Scapers\PageScrapers\FanFicsPageScraper.cs" />
