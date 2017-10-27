@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
@@ -24,8 +25,9 @@ namespace Midium.Helpers.ApplicationHelpers
             {
                 Dispatcher.PushFrame ( frame );
             }
-            catch ( InvalidOperationException )
+            catch ( InvalidOperationException e)
             {
+                Debug.WriteLine(e.InnerException);
             }
         }
         /// <summary>
