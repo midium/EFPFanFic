@@ -9,10 +9,8 @@ namespace EFPFanFic.UI.Navigators.Commands
 {
     public class FirstPageCommand: ICommand
     {
-        private Action _firstPage;
-
         public event EventHandler CanExecuteChanged;
-        public Action FirstPage => _firstPage;
+        public Action FirstPage;
 
         public bool CanExecute(object parameter)
         {
