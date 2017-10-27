@@ -5,6 +5,7 @@ Midium.Helpers/obj/
 .vs/
 .sonarqube/
 *.csproj.user
+*.bat
 
 # for nuget packages
 packages
