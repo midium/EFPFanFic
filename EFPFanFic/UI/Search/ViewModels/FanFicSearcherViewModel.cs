@@ -14,9 +14,8 @@ namespace EFPFanFic.UI.Search.ViewModels
     {
 
         public event Action SearchFanFics;
-        //public event Action ClearSearch;
 
-        private FanFicsSearchCommand _searchCommand;
+        private readonly FanFicsSearchCommand _searchCommand;
 
         private readonly CollectionView _ratingEntries;
         private EntityBase _ratingEntry;

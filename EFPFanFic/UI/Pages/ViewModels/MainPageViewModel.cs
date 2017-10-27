@@ -19,13 +19,13 @@ namespace EFPFanFic.UI.Pages.ViewModels
 {
     public class MainPageViewModel : ObservableObject
     {
-        private CategorySelectorViewModel _categorySelectorViewModel;
+        private readonly CategorySelectorViewModel _categorySelectorViewModel;
         private UserControl _currentCategoryViewModel;
 
         private SubCategoryViewModel _subCategorySelectorViewModel;
         private CategoryPageViewModel _categoryPageViewModel;
         private CategoryPage _categoryPage;
-        private ScrapersManager _scrapersManager;
+        private readonly ScrapersManager _scrapersManager;
 
         private FanFicSelectorViewModel _fanFicSelectorViewModel;
         private FanFicPageViewModel _fanFicPageViewModel;

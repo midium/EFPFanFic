@@ -12,9 +12,9 @@ namespace EFPFanFic.UI.Pages.ViewModels
     public class ReaderPageViewModel : ObservableObject
     {
         private string _fanFicStory;
-        private HtmlToText _htmlToText;
+        private readonly HtmlToText _htmlToText;
         private int _defaultFontSize;
-        private ClosePanel _closePanel;
+        private readonly ClosePanel _closePanel;
 
         public event Action CloseReaderPage;
 

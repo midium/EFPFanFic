@@ -13,8 +13,8 @@ namespace EFPFanFic.UI.Selectors.FanFicsSelector.ViewModels
     {
         public event Action<FanFicItemViewModel> SaveAsPDF;
         public event Action<FanFicItemViewModel> ReadFanFic;
-        private SaveAsPdfCommand _saveAsPdfCommand;
-        private ReadFanFicCommand _readFanFicCommand;
+        private readonly SaveAsPdfCommand _saveAsPdfCommand;
+        private readonly ReadFanFicCommand _readFanFicCommand;
 
         public SaveAsPdfCommand SaveAsPdf { get => _saveAsPdfCommand; }
         public ReadFanFicCommand ReadFanFicCommand { get => _readFanFicCommand; }

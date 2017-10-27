@@ -12,7 +12,7 @@ namespace EFPFanFic.UI.Pages.ViewModels
     {
         private bool _isCategorySelected;
         private string _categoryName;
-        private SubCategoryViewModel _subCategorySelectorViewModel;
+        private readonly SubCategoryViewModel _subCategorySelectorViewModel;
 
         public bool IsCategorySelected
         {

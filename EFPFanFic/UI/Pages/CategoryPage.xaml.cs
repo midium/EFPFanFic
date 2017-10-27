@@ -24,7 +24,6 @@ namespace EFPFanFic.UI.Pages
     public partial class CategoryPage : UserControl
     {
         private CategoryPageViewModel _categoryPageViewModel;
-        private ObservableCollection<SubCategoryItemDTO> _subCategories;
         public event Action<SubCategoryItemDTO> SubCategorySelectionChanged;
 
         public CategoryPage(CategoryPageViewModel categoryPageViewModel)

@@ -300,11 +300,6 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
 
         }
 
-        private static String StripUnicodeCharactersFromString(string inputValue)
-        {
-	        return Encoding.ASCII.GetString(Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(Encoding.ASCII.EncodingName, new EncoderReplacementFallback(String.Empty), new DecoderExceptionFallback()), Encoding.UTF8.GetBytes(inputValue)));
-        }
-
         internal FullStoryData GetFanFicFullStory(string fanFicUri)
         {
             FullStoryData result = null;
@@ -314,8 +309,6 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
                 string uriId = fanFicId.Value.Replace("=", string.Empty).Replace("&", string.Empty);
                 try
                 {
-                    bool scrapeSucceeded = true;
-
                     byte[] mainPageHtml = _webClient.DownloadData(string.Format(_fullStoryUri, uriId));
                     string source = Encoding.GetEncoding("Windows-1252").GetString(mainPageHtml, 0, mainPageHtml.Length - 1);
                     source = WebUtility.HtmlDecode(source.Replace('\u2019','\'').Replace('\u8217','\'').Replace('\u8017','\''));

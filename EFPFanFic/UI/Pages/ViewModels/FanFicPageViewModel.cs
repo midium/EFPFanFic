@@ -12,7 +12,7 @@ namespace EFPFanFic.UI.Pages.ViewModels
     {
         private string _fanFicPageName;
         private string _categoryName;
-        private FanFicSelectorViewModel _fanFicSelectorViewModel;
+        private readonly FanFicSelectorViewModel _fanFicSelectorViewModel;
 
         public string FanFicPageName
         {
