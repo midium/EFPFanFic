@@ -3,6 +3,7 @@ EFPFanFic/obj/
 Midium.Helpers/bin/
 Midium.Helpers/obj/
 .vs/
+.sonarqube/
 *.csproj.user
 
 # for nuget packages
