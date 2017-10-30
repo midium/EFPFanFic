@@ -29,7 +29,7 @@ namespace EFPFanFic.UI.Selectors.CategorySelector
                     foreach (CategoryItemDTO category in viewModel.CategorySelector.Categories)
                         category.IsSelectedCategory = (category.CategoryName == ci.GetCategoryItemData?.CategoryName);
 
-                if (CategorySelectionChanged != null)
+                if (CategorySelectionChanged != null && ci != null)
                     CategorySelectionChanged(ci.GetCategoryItemData);
             }
         }
