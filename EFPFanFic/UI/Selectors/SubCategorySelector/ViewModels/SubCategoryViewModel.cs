@@ -14,6 +14,7 @@ namespace EFPFanFic.UI.Selectors.SubCategorySelector.ViewModels
     public class SubCategoryViewModel : ObservableObject
     {
         private ObservableCollection<SubCategoryItemDTO> _subCategories = new ObservableCollection<SubCategoryItemDTO>();
+        private SubCategoryItemDTO _selectedItem = null;
 
         private ICollectionView _filteredItems;
         private string filterString;
@@ -58,6 +59,6 @@ namespace EFPFanFic.UI.Selectors.SubCategorySelector.ViewModels
             }
         }
 
-
+        public SubCategoryItemDTO SelectedItem { get => _selectedItem; set => _selectedItem = value; }
     }
 }

@@ -5,9 +5,10 @@ namespace EFPFanFic.UI.Selectors.CategorySelector.ViewModels.DTO
     public class CategoryItemDTO : ObservableObject
     {
 
-        string _categoryName;
-        string _categoryUri;
-        long _categoryItemsCount;
+        private string _categoryName;
+        private string _categoryUri;
+        private long _categoryItemsCount;
+        private bool _isSelectedCategory;
 
         public string CategoryName {
             get { return _categoryName; }
@@ -37,12 +38,22 @@ namespace EFPFanFic.UI.Selectors.CategorySelector.ViewModels.DTO
         }
 
         public string CategoryUri { get => _categoryUri; set => _categoryUri = value; }
+        public bool IsSelectedCategory
+        {
+            get => _isSelectedCategory;
+            set
+            {
+                _isSelectedCategory = value;
+                OnPropertyChanged();
+            }
+        }
 
         public CategoryItemDTO(string categoryName, string categoryUri, long categoryItemsCount)
         {
             _categoryName = categoryName;
             _categoryUri = categoryUri;
             _categoryItemsCount = categoryItemsCount;
+            _isSelectedCategory = false;
         }
     }
 }

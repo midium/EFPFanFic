@@ -1,4 +1,5 @@
-﻿using EFPFanFic.UI.Selectors.CategorySelector.ViewModels.DTO;
+﻿using EFPFanFic.UI.Pages.ViewModels;
+using EFPFanFic.UI.Selectors.CategorySelector.ViewModels.DTO;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -23,7 +24,10 @@ namespace EFPFanFic.UI.Selectors.CategorySelector
             if(sender is CategoryItem)
             {
                 CategoryItem ci = sender as CategoryItem;
-                ci.IsSelected = true; // TODO: disable any previously selected category (maybe it will worth to style a radio button as a toggle with a custom design)
+                MainPageViewModel viewModel = this.DataContext as MainPageViewModel;
+                if (viewModel != null && ci != null)
+                    foreach (CategoryItemDTO category in viewModel.CategorySelector.Categories)
+                        category.IsSelectedCategory = (category.CategoryName == ci.GetCategoryItemData?.CategoryName);
 
                 if (CategorySelectionChanged != null)
                     CategorySelectionChanged(ci.GetCategoryItemData);

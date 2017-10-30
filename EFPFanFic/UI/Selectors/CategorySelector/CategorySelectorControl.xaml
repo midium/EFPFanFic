@@ -21,7 +21,9 @@
                 <ItemsControl Name="categories" Background="#FF404040" ItemsSource="{Binding CategorySelector.Categories}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <categoryselector:CategoryItem Style="{StaticResource categoryItemStyle}" MouseDown="CategoryItem_MouseDown" ></categoryselector:CategoryItem>
+                            <categoryselector:CategoryItem Style="{StaticResource categoryItemStyle}" 
+                                                           MouseDown="CategoryItem_MouseDown" 
+                                                           IsSelected="{Binding IsSelectedCategory}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
