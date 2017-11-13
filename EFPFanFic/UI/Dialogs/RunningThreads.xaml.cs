@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EFPFanFic.UI.Dialogs.Items.ViewModel;
+using EFPFanFic.UI.Dialogs.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,12 @@ namespace EFPFanFic.UI.Dialogs
     /// </summary>
     public partial class RunningThreads : Window
     {
-        public RunningThreads()
+        public RunningThreads(RunningThreadsViewModel vm)
         {
             InitializeComponent();
+
+            Header.DataContext = new ThreadEntryViewModel(0, "Fan Fiction", "Start At");
+            this.DataContext = vm;
         }
     }
 }

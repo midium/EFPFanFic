@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Midium.Helpers.Threading
 {
@@ -11,6 +13,8 @@ namespace Midium.Helpers.Threading
     {
         private Dictionary<int, ThreadWork> _threadList;
         private Thread _thread;
+        private readonly object _lockObj = new object();
+        public event Action ThreadCompleted;
 
         public ThreadsManager()
         {
@@ -19,27 +23,55 @@ namespace Midium.Helpers.Threading
 
         public Dictionary<int, ThreadWork> ThreadList { get => _threadList; set => _threadList = value; }
 
-        public void StartNewThread(Action action)
+        public void StartNewThread(Action action, string threadName)
         {
-            ThreadStart ts = new ThreadStart(action);
-            _thread = new Thread(ts);
+            _thread = new Thread(() => RunAction(action, _thread.ManagedThreadId));
 
-            _threadList.Add(_thread.ManagedThreadId, new ThreadWork(DateTime.Now, _thread));
+            _threadList.Add(_thread.ManagedThreadId, new ThreadWork(DateTime.Now, threadName, _thread));
 
             _thread.Start();
         }
 
+        public void RunAction(Action action, int threadId)
+        {
+            try
+            {
+                Dispatcher.CurrentDispatcher.Invoke(action);
+            }
+            finally
+            {
+                Dispatcher.CurrentDispatcher.Invoke(() => ThreadFinished(threadId));
+            }
+        }
+
+        private void ThreadFinished(int threadId)
+        {
+            lock (_lockObj)
+            {
+                if (_threadList != null && _threadList.ContainsKey(threadId))
+                {
+                    _threadList.Remove(threadId);
+                    ThreadCompleted?.Invoke();
+                }
+            }
+        }
     }
 
     public class ThreadWork
     {
         private DateTime _startTime;
+        private string _threadName;
         private Thread _thread;
 
-        public ThreadWork(DateTime startTime, Thread thread)
+        public ThreadWork(DateTime startTime, string threadName, Thread thread)
         {
             _startTime = startTime;
+            _threadName = threadName;
             _thread = thread;
         }
+
+        public DateTime StartTime { get => _startTime; set => _startTime = value; }
+        public Thread Thread { get => _thread; set => _thread = value; }
+        public string ThreadName { get => _threadName; set => _threadName = value; }
     }
 }

@@ -1,7 +1,11 @@
-﻿using EFPFanFic.UI.Pages.ViewModels;
+﻿using EFPFanFic.UI.Dialogs;
+using EFPFanFic.UI.Dialogs.Items.ViewModel;
+using EFPFanFic.UI.Dialogs.ViewModel;
+using EFPFanFic.UI.Pages.ViewModels;
 using EFPFanFic.UI.Selectors.CategorySelector;
 using EFPFanFic.UI.Selectors.CategorySelector.ViewModels.DTO;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace EFPFanFic.UI.Pages
@@ -33,5 +37,6 @@ namespace EFPFanFic.UI.Pages
                 CategorySelectionChanged(category);
             
         }
+
     }
 }

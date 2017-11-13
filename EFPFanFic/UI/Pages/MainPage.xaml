@@ -7,31 +7,38 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="520">
     <UserControl.Resources>
-        <Style x:Key="imageStyle" TargetType="{x:Type Image}">
-            <Setter Property="Cursor" Value="Hand"/>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5"/>
-                    <Setter Property="Cursor" Value="Arrow"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/EFPFanFic;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="imageStyle" TargetType="{x:Type Image}">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5"/>
+                        <Setter Property="Cursor" Value="Arrow"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="#323232">
         <Grid.RowDefinitions>
             <RowDefinition Height="289*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="14*"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
 
         <CategorySelector:CategorySelectorControl x:Name="Categories" DataContext="{Binding .}" CategorySelectionChanged="Categories_CategorySelectionChanged" />
         <ContentControl Grid.Column="1" x:Name="viewsContainer" Content="{Binding CurrentCategoryViewModel}" Grid.ColumnSpan="2" />
-        <Image Grid.Row="1" Grid.Column="2" Margin="2" IsEnabled="{Binding IsThreadsButtonEnabled}" Style="{StaticResource imageStyle}" 
-               Source="/EFPFanFic;component/Images/task.png" ToolTip="Show Running PDF conversions"/>
+        <Button Command="{Binding ShowThreadsCommand}" Grid.Row="1" Grid.Column="2" Margin="2" Style="{StaticResource buttonStyle}" ToolTip="Show Running PDF conversions">
+            <Image IsEnabled="{Binding IsThreadsButtonEnabled}" Style="{StaticResource imageStyle}" Height="16" Width="16"
+               Source="/EFPFanFic;component/Images/task.png" />
+        </Button>
         <Border BorderBrush="Black" BorderThickness="0,1,0,0" Grid.Row="1" Grid.ColumnSpan="3" />
     </Grid>
 </UserControl>

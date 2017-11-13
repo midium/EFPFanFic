@@ -27,11 +27,11 @@ namespace Midium.Helpers.PDF
             _threadManager = new ThreadsManager();
         }
 
-        public bool SaveHtmlToPDF(string htmlSource, string css, string fileName)
+        public bool SaveHtmlToPDF(string htmlSource, string css, string fileName, string fanFicName)
         {
             try
             {
-                _threadManager.StartNewThread(() => ConvertHtmlToPDF(htmlSource, css, fileName));
+                _threadManager.StartNewThread(() => ConvertHtmlToPDF(htmlSource, css, fileName), fanFicName);
                 return true;
             } catch (Exception e)
             {

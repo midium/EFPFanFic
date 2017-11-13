@@ -1,5 +1,9 @@
 ﻿using EFPFanFic.Business.Scapers;
 using EFPFanFic.Business.Scapers.Entities;
+using EFPFanFic.UI.Dialogs;
+using EFPFanFic.UI.Dialogs.Items.ViewModel;
+using EFPFanFic.UI.Dialogs.ViewModel;
+using EFPFanFic.UI.Pages.Commands;
 using EFPFanFic.UI.Selectors.CategorySelector;
 using EFPFanFic.UI.Selectors.CategorySelector.ViewModels;
 using EFPFanFic.UI.Selectors.FanFicsSelector.ViewModels;
@@ -7,6 +11,7 @@ using EFPFanFic.UI.Selectors.SubCategorySelector.ViewModels;
 using EFPFanFic.UI.Selectors.SubCategorySelector.ViewModels.DTO;
 using Midium.Helpers.Observable;
 using Midium.Helpers.PDF;
+using Midium.Helpers.Threading;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,7 +41,9 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
         private SubCategoryItemDTO _selectedSubCategory;
 
+        private readonly ShowRunningThreadsCommand _showThreadsCommand;
         private readonly PDFManager _pdfManager;
+        private readonly object _lockObj = new object();
 
         private string _rating = string.Empty;
         private string _genre = string.Empty;
@@ -54,6 +61,8 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
         public MainPageViewModel(CategorySelectorViewModel categorySelectorViewModel, ScrapersManager scrapersManager)
         {
+            _showThreadsCommand = new ShowRunningThreadsCommand();
+            _showThreadsCommand.ShowThreads += _ShowThreads;
             _pdfManager = new PDFManager();
             _scrapersManager = scrapersManager;
             _categorySelectorViewModel = categorySelectorViewModel;
@@ -61,6 +70,13 @@ namespace EFPFanFic.UI.Pages.ViewModels
             CurrentCategoryViewModel = InitiateCategoryPage();
 
             OnPropertyChanged(nameof(IsThreadsButtonEnabled));
+        }
+
+        private void _ShowThreads()
+        {
+            RunningThreadsViewModel vm = new RunningThreadsViewModel(_pdfManager.ThreadManager);
+            RunningThreads rt = new RunningThreads(vm);
+            rt.ShowDialog();
         }
 
         private CategoryPage InitiateCategoryPage()
@@ -169,7 +185,7 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
                 if (saveFile.FileName != string.Empty)
                 {
-                    _pdfManager.SaveHtmlToPDF(fanFicStory.Text, fanFicStory.Css, saveFile.FileName);
+                    _pdfManager.SaveHtmlToPDF(fanFicStory.Text, fanFicStory.Css, saveFile.FileName, fanFicData.Title);
                     OnPropertyChanged(nameof(IsThreadsButtonEnabled));
                 }
                 
@@ -260,5 +276,7 @@ namespace EFPFanFic.UI.Pages.ViewModels
                 return _pdfManager.ThreadManager.ThreadList.Count > 0;
             }
         }
+
+        public ShowRunningThreadsCommand ShowThreadsCommand { get => _showThreadsCommand; }
     }
 }
