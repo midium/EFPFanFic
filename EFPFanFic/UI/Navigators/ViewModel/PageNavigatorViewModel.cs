@@ -101,33 +101,56 @@ namespace EFPFanFic.UI.Navigators.ViewModel
 
         public bool IsFirstButtonEnabled
         {
-            get => _isFirstButtonEnabled;
-            set { _isFirstButtonEnabled = value; OnPropertyChanged(); }
+            get
+            {
+                return _currentPage > 1;
+            }
         }
         public bool IsPreviousButtonEnabled
         {
-            get => _isPreviousButtonEnabled;
-            set { _isPreviousButtonEnabled = value; OnPropertyChanged(); }
+            get
+            {
+                return _currentPage > 1;
+            }
         }
         public bool IsNextButtonEnabled
         {
-            get => _isNextButtonEnabled;
-            set { _isNextButtonEnabled = value; OnPropertyChanged(); }
+            get
+            {
+                return _currentPage < _maxPages;
+            }
         }
         public bool IsLastButtonEnabled
         {
-            get => _isLastButtonEnabled;
-            set { _isLastButtonEnabled = value; OnPropertyChanged(); }
+            get
+            {
+                return _currentPage < _maxPages;
+            }
         }
         public int CurrentPage
         {
             get => _currentPage;
-            set { _currentPage = value; OnPropertyChanged(nameof(NavigationInfo)); }
+            set
+            {
+                _currentPage = value; OnPropertyChanged(); OnPropertyChanged(nameof(NavigationInfo));
+                OnPropertyChanged(nameof(IsFirstButtonEnabled));
+                OnPropertyChanged(nameof(IsPreviousButtonEnabled));
+                OnPropertyChanged(nameof(IsNextButtonEnabled));
+                OnPropertyChanged(nameof(IsLastButtonEnabled));
+            }
         }
         public int MaxPages
         {
             get => _maxPages;
-            set { _maxPages = value; OnPropertyChanged(nameof(NavigationInfo)); }
+            set
+            {
+                _maxPages = value; OnPropertyChanged(); OnPropertyChanged(nameof(NavigationInfo));
+                OnPropertyChanged(nameof(IsFirstButtonEnabled));
+                OnPropertyChanged(nameof(IsPreviousButtonEnabled));
+                OnPropertyChanged(nameof(IsNextButtonEnabled));
+                OnPropertyChanged(nameof(IsLastButtonEnabled));
+
+            }
         }
         public string NavigationInfo
         {

@@ -29,6 +29,7 @@ namespace EFPFanFic.UI.Search.ViewModels
         private EntityBase _coupleTypeEntry;
         private readonly CollectionView _characterEntries;
         private EntityBase _character1Entry;
+        private readonly CollectionView _characterEntries2;
         private EntityBase _character2Entry;
         private readonly CollectionView _coupleEntries;
         private EntityBase _coupleEntry;
@@ -58,7 +59,8 @@ namespace EFPFanFic.UI.Search.ViewModels
             _storyLengthEntries = new CollectionView(storyLengthOptions); _storyLengthEntry = storyLengthOptions[0];
             _storyStatusEntries = new CollectionView(storyStatusOptions); _storyStatusEntry = storyStatusOptions[0];
             _coupleTypeEntries = new CollectionView(coupleTypesOptions); _coupleTypeEntry = coupleTypesOptions[0];
-            _characterEntries = new CollectionView(charactersOptions); _character1Entry = charactersOptions[0]; _character2Entry = charactersOptions[0];
+            _characterEntries = new CollectionView(charactersOptions); _character1Entry = charactersOptions[0];
+            _characterEntries2 = new CollectionView(charactersOptions); _character2Entry = charactersOptions[0];
             _coupleEntries = new CollectionView(couplesOptions); _coupleEntry = couplesOptions[0];
             _contextEntries = new CollectionView(contextOptions); _contextEntry = contextOptions[0];
             _notesEntries = new CollectionView(notesOptions); _noteEntry = notesOptions[0]; _excludeNoteEntry = notesOptions[0];
@@ -175,6 +177,8 @@ namespace EFPFanFic.UI.Search.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public CollectionView CharacterEntries2 => _characterEntries2;
 
         public EntityBase Character2Entry
         {

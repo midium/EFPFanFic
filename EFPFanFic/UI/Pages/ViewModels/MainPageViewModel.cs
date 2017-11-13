@@ -36,6 +36,8 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
         private SubCategoryItemDTO _selectedSubCategory;
 
+        private readonly PDFManager _pdfManager;
+
         private string _rating = string.Empty;
         private string _genre = string.Empty;
         private string _storyLength = string.Empty;
@@ -52,10 +54,13 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
         public MainPageViewModel(CategorySelectorViewModel categorySelectorViewModel, ScrapersManager scrapersManager)
         {
+            _pdfManager = new PDFManager();
             _scrapersManager = scrapersManager;
             _categorySelectorViewModel = categorySelectorViewModel;
 
             CurrentCategoryViewModel = InitiateCategoryPage();
+
+            OnPropertyChanged(nameof(IsThreadsButtonEnabled));
         }
 
         private CategoryPage InitiateCategoryPage()
@@ -164,8 +169,8 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
                 if (saveFile.FileName != string.Empty)
                 {
-                    PDFManager pdf = new PDFManager();
-                    pdf.SaveHtmlToPDF(fanFicStory.Text, fanFicStory.Css, saveFile.FileName);
+                    _pdfManager.SaveHtmlToPDF(fanFicStory.Text, fanFicStory.Css, saveFile.FileName);
+                    OnPropertyChanged(nameof(IsThreadsButtonEnabled));
                 }
                 
             }            
@@ -244,5 +249,16 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
         public CategoryPageViewModel CategoryPageViewModel { get => _categoryPageViewModel; }
         public ScrapersManager ScrapersManager { get => _scrapersManager; }
+        public bool IsThreadsButtonEnabled
+        {
+            get
+            {
+                if (_pdfManager == null) return false;
+                if (_pdfManager.ThreadManager == null) return false;
+                if (_pdfManager.ThreadManager.ThreadList == null) return false;
+
+                return _pdfManager.ThreadManager.ThreadList.Count > 0;
+            }
+        }
     }
 }

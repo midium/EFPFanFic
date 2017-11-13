@@ -50,7 +50,8 @@ namespace EFPFanFic.UI.Search.ViewModels.DesignTime
             new EntityBase("1", "Nessuno"), new EntityBase("2", "PG18")
         })
         {
-
+            base.Character1Entry = new EntityBase("1", "Harry Potter");
+            base.Character2Entry = new EntityBase("2", "Hermione Granger");
         }
 
     }

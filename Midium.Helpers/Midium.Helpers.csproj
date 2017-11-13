@@ -63,6 +63,7 @@
     <Compile Include="Observable\ObservableObject.cs" />
     <Compile Include="PDF\PDFManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\ThreadsManager.cs" />
     <Compile Include="Web\HtmlToText.cs" />
     <Compile Include="Web\WebConnectionChecker.cs" />
   </ItemGroup>

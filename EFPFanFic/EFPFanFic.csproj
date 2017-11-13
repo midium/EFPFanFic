@@ -75,6 +75,9 @@
     <Compile Include="Business\Scapers\PageScrapers\FanFicsPageScraper.cs" />
     <Compile Include="Business\Scapers\PageScrapers\MainPageScraper.cs" />
     <Compile Include="Business\Scapers\ScrapersManager.cs" />
+    <Compile Include="UI\Dialogs\RunningThreads.xaml.cs">
+      <DependentUpon>RunningThreads.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\Dialogs\RunningThreads.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Dialogs\SplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -278,6 +285,8 @@
   <ItemGroup>
     <Resource Include="Images\document-pdf-text.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\task.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -60,8 +60,8 @@
         <ComboBox Name="Status" Margin="2" Grid.Row="1" Grid.Column="3" ItemsSource="{Binding StoryStatusEntries}" SelectedItem="{Binding StoryStatusEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
         <ComboBox Name="CoupleType" Margin="2" Grid.Row="1" Grid.Column="4" ItemsSource="{Binding CoupleTypeEntries}" SelectedItem="{Binding CoupleTypeEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
 
-        <ComboBox Name="Characters1" Margin="2" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding CharacterEntries}" SelectedItem="{Binding Character1Entry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
-        <ComboBox Name="Characters2" Margin="2" Grid.Row="3" Grid.Column="2" ItemsSource="{Binding CharacterEntries}" SelectedItem="{Binding Character2Entry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Characters1" Margin="2" Grid.Row="3" Grid.ColumnSpan="2" ItemsSource="{Binding CharacterEntries}" SelectedItem="{Binding Character1Entry, Mode=TwoWay}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
+        <ComboBox Name="Characters2" Margin="2" Grid.Row="3" Grid.Column="2" ItemsSource="{Binding CharacterEntries2}" SelectedItem="{Binding Character2Entry, Mode=TwoWay}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
         <ComboBox Name="Couple" Margin="2" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" ItemsSource="{Binding CoupleEntries}" SelectedItem="{Binding CoupleEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>
 
         <ComboBox Name="Context" Margin="2" Grid.Row="5" ItemsSource="{Binding ContextEntries}" SelectedItem="{Binding ContextEntry}" Style="{StaticResource FlatComboBoxStyle}" DisplayMemberPath="Name"/>

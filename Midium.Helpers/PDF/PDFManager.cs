@@ -1,4 +1,5 @@
-﻿using PdfSharp;
+﻿using Midium.Helpers.Threading;
+using PdfSharp;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
@@ -17,19 +18,20 @@ namespace Midium.Helpers.PDF
 {
     public class PDFManager
     {
-        private Thread _saveThread;
+        private readonly ThreadsManager _threadManager;
+
+        public ThreadsManager ThreadManager { get => _threadManager; }
 
         public PDFManager()
         {
-            
+            _threadManager = new ThreadsManager();
         }
 
         public bool SaveHtmlToPDF(string htmlSource, string css, string fileName)
         {
             try
             {
-                _saveThread = new Thread(() => ConvertHtmlToPDF(htmlSource, css, fileName));
-                _saveThread.Start();
+                _threadManager.StartNewThread(() => ConvertHtmlToPDF(htmlSource, css, fileName));
                 return true;
             } catch (Exception e)
             {
@@ -51,10 +53,7 @@ namespace Midium.Helpers.PDF
 
         private void ConvertHtmlToPDF(string htmlSource, string css, string fileName)
         {
-
-            
             CssData cssData = PdfGenerator.ParseStyleSheet(GetCssContent(css));
-
             PdfDocument pdf = PdfGenerator.GeneratePdf(htmlSource, PageSize.A4, 20, cssData);
 
             if (pdf != null && pdf.PageCount>0 && fileName != string.Empty)
