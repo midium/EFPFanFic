@@ -75,6 +75,7 @@
     <Compile Include="Business\Scapers\PageScrapers\FanFicsPageScraper.cs" />
     <Compile Include="Business\Scapers\PageScrapers\MainPageScraper.cs" />
     <Compile Include="Business\Scapers\ScrapersManager.cs" />
+    <Compile Include="UI\Dialogs\Items\Commands\CloseThreadCommand.cs" />
     <Compile Include="UI\Dialogs\Items\ThreadEntry.xaml.cs">
       <DependentUpon>ThreadEntry.xaml</DependentUpon>
     </Compile>

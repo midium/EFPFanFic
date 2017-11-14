@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Threading;
 
 namespace Midium.Helpers.Threading
@@ -15,6 +16,7 @@ namespace Midium.Helpers.Threading
         private Thread _thread;
         private readonly object _lockObj = new object();
         public event Action ThreadCompleted;
+        public event Action<string> ThreadAborted;
 
         public ThreadsManager()
         {
@@ -52,6 +54,23 @@ namespace Midium.Helpers.Threading
                 {
                     _threadList.Remove(threadId);
                     ThreadCompleted?.Invoke();
+                }
+            }
+        }
+
+        public void KillThread(int threadId)
+        {
+            lock (_lockObj)
+            {
+                if (_threadList != null && _threadList.ContainsKey(threadId))
+                {
+                    string threadName = _threadList[threadId].ThreadName;
+                    _threadList[threadId].Thread.Abort();
+                    _threadList.Remove(threadId);
+                    ThreadAborted?.Invoke(threadName);
+                } else
+                {
+                    MessageBox.Show("Unable to find the specified thread","Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
         }

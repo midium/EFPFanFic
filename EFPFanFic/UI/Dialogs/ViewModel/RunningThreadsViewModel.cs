@@ -24,20 +24,30 @@ namespace EFPFanFic.UI.Dialogs.ViewModel
         {
             _manager = threadsManager;
             _manager.ThreadCompleted += _manager_ThreadCompleted;
+            _manager.ThreadAborted += _manager_ThreadAborted;
 
-            InitiateThreadsList();
+            RefreshThreadsList();
+        }
+
+        private void _manager_ThreadAborted(string threadName)
+        {
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            {
+                RefreshThreadsList();
+                MessageBox.Show(string.Format("Exportation of '{0}' aborted", threadName),"Information",MessageBoxButton.OK,MessageBoxImage.Information);
+            });
         }
 
         private void _manager_ThreadCompleted()
         {
-            Dispatcher.CurrentDispatcher.Invoke(() => InitiateThreadsList());
+            Dispatcher.CurrentDispatcher.Invoke(() => RefreshThreadsList());
         }
 
-        private void InitiateThreadsList()
+        private void RefreshThreadsList()
         {
             if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Application.Current.Dispatcher.Invoke(() => InitiateThreadsList());
+                Application.Current.Dispatcher.Invoke(() => RefreshThreadsList());
             }
             else
             {
@@ -51,9 +61,25 @@ namespace EFPFanFic.UI.Dialogs.ViewModel
                         ThreadWork tw = _manager.ThreadList[threadId] as ThreadWork;
                         if (tw == null) continue;
 
-                        _threads.Add(new ThreadEntryViewModel(threadId, tw.ThreadName, tw.StartTime.ToShortTimeString()));
+                        ThreadEntryViewModel vm = new ThreadEntryViewModel(threadId, tw.ThreadName, tw.StartTime.ToLongTimeString());
+                        vm.CloseThread += Vm_CloseThread;
+
+                        _threads.Add(vm);
                     }
                 }
+            }
+        }
+
+        private void Vm_CloseThread(int threadId)
+        {
+            if (!Application.Current.Dispatcher.CheckAccess())
+            {
+                Application.Current.Dispatcher.Invoke(() => Vm_CloseThread(threadId));
+            }
+            else
+            {
+                _manager.KillThread(threadId);
+                RefreshThreadsList();
             }
         }
     }

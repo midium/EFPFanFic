@@ -23,7 +23,8 @@
         <Label Content="{Binding StartTime}" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
         <TextBlock Text="{Binding Name}" Grid.Column="1" Foreground="White" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="4,0"/>
         <Button Grid.Row="1" Grid.Column="2" Name="CleanButton" Cursor="Hand" Style="{StaticResource buttonStyle}" Margin="5" 
-                    CommandParameter="{Binding Mode=OneWay}" Command="{Binding ClosePanel}" ToolTip="Force Close Task" Visibility="{Binding ElementName=userControl, Path=ActionButtonVisibility, Mode=OneWay}">
+                    CommandParameter="{Binding Id}" Command="{Binding CloseThreadCommand}" 
+                ToolTip="Force Close Task" Visibility="{Binding ElementName=userControl, Path=ActionButtonVisibility, Mode=OneWay}">
             <Image Source="/EFPFanFic;component/Images/cross.png" Width="16" Height="16"/>
         </Button>
     </Grid>
