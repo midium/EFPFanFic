@@ -70,7 +70,7 @@ namespace EFPFanFic.UI.Dialogs.Items.ViewModel
 
         private void _Tick(object sender, EventArgs e)
         {
-            if (_startTime == null || _startTime == DateTime.MinValue) return;
+            if (_startTime == DateTime.MinValue) return;
 
             TimeSpan result = DateTime.Now - _startTime;
 
