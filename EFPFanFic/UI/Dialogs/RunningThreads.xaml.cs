@@ -25,8 +25,13 @@ namespace EFPFanFic.UI.Dialogs
         {
             InitializeComponent();
 
-            Header.DataContext = new ThreadEntryViewModel(0, "Fan Fiction", "Start At");
+            Header.DataContext = new ThreadEntryViewModel(0, "Fan Fiction", "Start At", "Elapsed");
             this.DataContext = vm;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -61,7 +61,7 @@ namespace EFPFanFic.UI.Dialogs.ViewModel
                         ThreadWork tw = _manager.ThreadList[threadId] as ThreadWork;
                         if (tw == null) continue;
 
-                        ThreadEntryViewModel vm = new ThreadEntryViewModel(threadId, tw.ThreadName, tw.StartTime.ToLongTimeString());
+                        ThreadEntryViewModel vm = new ThreadEntryViewModel(threadId, tw.ThreadName, tw.StartTime);
                         vm.CloseThread += Vm_CloseThread;
 
                         _threads.Add(vm);

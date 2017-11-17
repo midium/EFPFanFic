@@ -8,7 +8,7 @@ namespace EFPFanFic.UI.Dialogs.Items.ViewModel.DesignTime
 {
     public class DTThreadEntryViewModel: ThreadEntryViewModel
     {
-        public DTThreadEntryViewModel() : base(0,"Test thread", "12:00:00")
+        public DTThreadEntryViewModel() : base(0,"Test thread", DateTime.Now)
         {
 
         }
