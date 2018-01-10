@@ -60,6 +60,7 @@ namespace EFPFanFic.Business.Boot
         private void _mainPage_CategorySelectionChanged(CategoryItemDTO category)
         {
             _pagesHelper.WindowTitle = string.Format(_windowTitle, string.Format(_windowTitleCategory, category.CategoryName));
+            _mainPageViewModel.CurrentCategoryViewModel = _mainPageViewModel.GetCategoryPage();
         }
 
         internal void Boot()

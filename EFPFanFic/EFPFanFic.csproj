@@ -37,8 +37,8 @@
     <ApplicationIcon>Images\efpfanfic.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.6.2.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.6.2\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.6.13.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.6.13\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
@@ -149,13 +149,19 @@
     <Compile Include="UI\Selectors\FanFicsSelector\ViewModels\DesignTime\DTFanFicSelectorViewModel.cs" />
     <Compile Include="UI\Selectors\FanFicsSelector\ViewModels\FanFicItemViewModel.cs" />
     <Compile Include="UI\Selectors\FanFicsSelector\ViewModels\FanFicSelectorViewModel.cs" />
+    <Compile Include="UI\Selectors\SubCategorySelector\Converters\SortDirectionToIconConverter.cs" />
+    <Compile Include="UI\Selectors\SubCategorySelector\SubCategoryItemHeader.xaml.cs">
+      <DependentUpon>SubCategoryItemHeader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Selectors\SubCategorySelector\SubCategoryItem.xaml.cs">
       <DependentUpon>SubCategoryItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Selectors\SubCategorySelector\SubCategorySelectorControl.xaml.cs">
       <DependentUpon>SubCategorySelectorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Selectors\SubCategorySelector\ViewModels\DesignTime\DTSubCategoryHeaderViewModel.cs" />
     <Compile Include="UI\Selectors\SubCategorySelector\ViewModels\DTO\SubCategoryItemDTO.cs" />
+    <Compile Include="UI\Selectors\SubCategorySelector\ViewModels\SubCategoryHeaderViewModel.cs" />
     <Compile Include="UI\Selectors\SubCategorySelector\ViewModels\SubCategoryViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +235,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Selectors\SubCategorySelector\SubCategoryItemHeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Selectors\SubCategorySelector\SubCategoryItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -299,6 +309,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\task.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\control-090.png" />
+    <Resource Include="Images\control-270.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

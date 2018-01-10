@@ -289,8 +289,8 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
 
                         if (option.Attributes["value"].Value.ToString() != string.Empty)
                             value = option.Attributes["value"].Value.ToString();
-
-                        name = option.NextSibling?.InnerText;
+                        if (option.InnerText == "Harry/Hermione") Debug.Print("");
+                        name = option.InnerText;
 
                         result.Add(new EntityBase(value, name));
                     }

@@ -56,6 +56,12 @@ namespace EFPFanFic.UI.Pages.ViewModels
         private string _context = string.Empty;
         private string _note = string.Empty;
         private string _warn = string.Empty;
+
+        internal UserControl GetCategoryPage()
+        {
+            return _categoryPage;
+        }
+
         private string _excludeNote = string.Empty;
         private string _excludeWarn = string.Empty;
 

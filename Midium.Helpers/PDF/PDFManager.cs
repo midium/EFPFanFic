@@ -53,8 +53,8 @@ namespace Midium.Helpers.PDF
 
         private void ConvertHtmlToPDF(string htmlSource, string css, string fileName)
         {
-            CssData cssData = PdfGenerator.ParseStyleSheet(GetCssContent(css));
-            PdfDocument pdf = PdfGenerator.GeneratePdf(htmlSource, PageSize.A4, 20, cssData);
+            //CssData cssData = PdfGenerator.ParseStyleSheet(GetCssContent(css));
+            PdfDocument pdf = PdfGenerator.GeneratePdf(htmlSource, PageSize.A4, 20);//, cssData);
 
             if (pdf != null && pdf.PageCount>0 && fileName != string.Empty)
             {

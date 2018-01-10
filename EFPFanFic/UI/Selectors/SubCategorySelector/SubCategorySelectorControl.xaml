@@ -20,15 +20,22 @@
         <Label Content="{Binding CategoryName}" Foreground="White" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,6" FontFamily="Trebuchet MS" FontSize="14" />
         <Search:SimpleSearch x:Name="SearchPanel" Grid.Row="1" Margin="6,0,6,0" ClearSearch="SearchPanel_ClearSearch" SearchItem="SearchPanel_SearchItem"/>
         <Border Margin="6" BorderBrush="Black" BorderThickness="1" Grid.Row="2" >
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl Name="categories" Background="#FF404040" ItemsSource="{Binding SubCategorySelector.FilteredItems}" >
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:SubCategoryItem Style="{StaticResource subCategoryItemStyle}" MouseDown="SubCategoryItem_MouseDown" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+                <local:SubCategoryItemHeader Background="Gray"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                    <ItemsControl Name="categories" Background="#FF404040" ItemsSource="{Binding SubCategorySelector.FilteredItems}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:SubCategoryItem Style="{StaticResource subCategoryItemStyle}" MouseDown="SubCategoryItem_MouseDown" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
         </Border>
 
     </Grid>
