@@ -267,6 +267,19 @@ namespace EFPFanFic.Business.Scapers.PageScrapers
             }
         }
 
+        internal string GetFanFicFullStoryUrl(string fanFicUri)
+        {
+            string result = string.Empty;
+            Match fanFicId = Regex.Match(fanFicUri, "\\=.*\\&");
+            if(fanFicId.Success)
+            {
+                string uriId = fanFicId.Value.Replace("=", string.Empty).Replace("&", string.Empty);
+                result = string.Format(_fullStoryUri, uriId);
+            }
+
+            return result;
+        }
+
         private List<EntityBase> GetOptions(HtmlNode searchFormNode, string optionName)
         {
             List<EntityBase> result = new List<EntityBase>();

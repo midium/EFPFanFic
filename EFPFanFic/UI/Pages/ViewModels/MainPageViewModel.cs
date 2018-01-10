@@ -180,8 +180,8 @@ namespace EFPFanFic.UI.Pages.ViewModels
         {
             if (fanFicData != null)
             {
-                FullStoryData fanFicStory = _scrapersManager.GetFanFicFullStory(fanFicData.Uri);
-                if (fanFicStory == null) return; //TODO: Implement message
+                string fanFicStoryUri = _scrapersManager.GetFanFicFullStoryUrl(fanFicData.Uri);
+                if (string.IsNullOrEmpty(fanFicStoryUri)) return; //TODO: Implement message
 
                 //TODO: Advise before saving that it will take time and can continue working
                 System.Windows.Forms.SaveFileDialog saveFile = new System.Windows.Forms.SaveFileDialog();
@@ -191,7 +191,7 @@ namespace EFPFanFic.UI.Pages.ViewModels
 
                 if (saveFile.FileName != string.Empty)
                 {
-                    _pdfManager.SaveHtmlToPDF(fanFicStory.Text, fanFicStory.Css, saveFile.FileName, fanFicData.Title);
+                    _pdfManager.SaveHtmlToPDF(fanFicStoryUri, saveFile.FileName, fanFicData.Title);
                     OnPropertyChanged(nameof(IsThreadsButtonEnabled));
                 }
                 

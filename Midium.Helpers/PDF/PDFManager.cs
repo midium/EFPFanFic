@@ -1,6 +1,4 @@
 ﻿using Midium.Helpers.Threading;
-using PdfSharp;
-using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,8 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using TheArtOfDev.HtmlRenderer.Core;
-using TheArtOfDev.HtmlRenderer.PdfSharp;
 
 namespace Midium.Helpers.PDF
 {
@@ -27,11 +23,11 @@ namespace Midium.Helpers.PDF
             _threadManager = new ThreadsManager();
         }
 
-        public bool SaveHtmlToPDF(string htmlSource, string css, string fileName, string fanFicName)
+        public bool SaveHtmlToPDF(string htmlUri, string fileName, string fanFicName)
         {
             try
             {
-                _threadManager.StartNewThread(() => ConvertHtmlToPDF(htmlSource, css, fileName), fanFicName);
+                _threadManager.StartNewThread(() => ConvertHtmlToPDF(htmlUri, fileName), fanFicName);
                 return true;
             } catch (Exception e)
             {
@@ -39,30 +35,18 @@ namespace Midium.Helpers.PDF
             }            
         }
 
-        private string GetCssContent(string cssUri)
+        private void ConvertHtmlToPDF(string htmlUri, string fileName)
         {
-            var webRequest = WebRequest.Create(cssUri);
-
-            using (var response = webRequest.GetResponse())
-            using(var content = response.GetResponseStream())
-            using(var reader = new StreamReader(content)){
-                return reader.ReadToEnd();
-            }
-
-        }
-
-        private void ConvertHtmlToPDF(string htmlSource, string css, string fileName)
-        {
-            //CssData cssData = PdfGenerator.ParseStyleSheet(GetCssContent(css));
-            PdfDocument pdf = PdfGenerator.GeneratePdf(htmlSource, PageSize.A4, 20);//, cssData);
-
-            if (pdf != null && pdf.PageCount>0 && fileName != string.Empty)
+            try
             {
-                pdf.Save(fileName);
+                var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
+                htmlToPdf.GeneratePdfFromFile(htmlUri, null, fileName);
                 MessageBox.Show(string.Format("{0} saved correctly.", fileName), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
+            } catch(Exception e)
+            {
                 MessageBox.Show("Unable to convert the given HTML to PDF.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

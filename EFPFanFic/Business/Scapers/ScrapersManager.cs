@@ -84,5 +84,10 @@ namespace EFPFanFic.Business.Scapers
         {
             return _fanFicsPageScraper.GetFanFicFullStory(fanFicUri);
         }
+
+        internal string GetFanFicFullStoryUrl(string uri)
+        {
+            return _fanFicsPageScraper.GetFanFicFullStoryUrl(uri);
+        }
     }
 }
